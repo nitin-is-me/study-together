@@ -4,7 +4,6 @@ const cors = require("cors");
 const cookieParser=require("cookie-parser");
 const app = express();
 const authRouter = require("./routes/authRouter");
-const getRouter = require("./routes/getRouter");
 const port = process.env.PORT || 5000
 app.use(cors({
     origin: "http://localhost:3000",
@@ -22,7 +21,6 @@ app.use(express.json());
 })();
 
 app.use("/auth", authRouter);
-app.use("/get", getRouter)
 
 app.listen(8000, ()=>{
     console.log(`Server is running on port ${port}`);
