@@ -50,11 +50,11 @@ exports.login = async (req, res) => {
 
 exports.logout = async (req, res) => {
     res.cookie("Token", '', {
-        httpOnly: true, // Match the setting when you created the cookie
-        secure: process.env.NODE_ENV === "production", // Ensure it matches the environment
-        sameSite: "strict", // Match the SameSite attribute
-        expires: new Date(0), // Set the expiration date to the past
-        path: '/' // Ensure this matches the path used when the cookie was set
+        httpOnly: true,
+        secure: process.env.NODE_ENV === "production",
+        sameSite: "strict",
+        expires: new Date(0),
+        path: '/'
     });
     res.send("Logging you out...");
 }
