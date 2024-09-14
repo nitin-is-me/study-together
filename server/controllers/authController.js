@@ -48,6 +48,17 @@ exports.login = async (req, res) => {
     }
 }
 
+exports.logout = async (req, res) => {
+    res.cookie("Token", '', {
+        httpOnly: true,
+        secure: process.env.NODE_ENV === "production",
+        sameSite: "strict",
+        expires: new Date(0),
+        path: '/'
+    });
+    res.send("Logging you out...");
+}
+
 exports.getAll = async (req, res)=>{
     const usertofind = await Student.find();
     res.send(usertofind)
@@ -65,4 +76,12 @@ exports.verifyToken = async (req, res) => {
     } catch (error) {
         return res.status(401).send('User is unauthorized');
     }
+}
+
+exports.userInfo = async(req, res)=>{
+    const token = req.cookies.Token;
+    const decoded = jwt.verify(token, process.env.JWT_SECRET);
+    const name = decoded.name;
+    const username = decoded.username;
+    res.json({name, username});
 }

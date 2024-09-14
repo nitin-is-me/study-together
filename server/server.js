@@ -3,7 +3,7 @@ const mongoose = require("mongoose");
 const cors = require("cors");
 const cookieParser=require("cookie-parser");
 const app = express();
-const authRouter = require("./routes/authRouter")
+const authRouter = require("./routes/authRouter");
 const port = process.env.PORT || 5000
 app.use(cors({
     origin: "http://localhost:3000",
