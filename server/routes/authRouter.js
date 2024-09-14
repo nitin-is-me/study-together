@@ -10,4 +10,4 @@ router.post("/logout", logout);
 router.get("/getAll", getAll);
 router.post("/verifyToken", verifyToken);
 router.get("/userInfo", userInfo);
-module.exports=router
+module.exports = router

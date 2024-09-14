@@ -8,12 +8,7 @@ export default function Dashboard() {
   const [username, setUsername] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-  const [publicRooms, setPublicRooms] = useState([
-    { id: 1, name: "Math Study Group", description: "Join us for some math practice!" },
-    { id: 2, name: "Science Q&A", description: "Ask and answer science questions." },
-    { id: 3, name: "History Discussion", description: "Discuss historical events." },
-    { id: 4, name: "Programming Help", description: "Get help with coding problems." }
-  ]);
+  const [publicRooms, setPublicRooms] = useState([]);
 
   const router = useRouter();
 
@@ -28,6 +23,14 @@ export default function Dashboard() {
         setError('Failed to fetch data');
         setLoading(false);
       });
+
+    axios.get("http://localhost:8000/room/public/get", { withCredentials: true })
+      .then(response => {
+        setPublicRooms(response.data);
+      })
+      .catch(err => {
+        setError('Failed to fetch public rooms');
+      });
   }, []);
 
   const handleLogout = async () => {
@@ -38,6 +41,10 @@ export default function Dashboard() {
       setError('Failed to log out');
     }
   };
+
+  const handleCreatePublicRoom = () =>{
+    router.push("/dashboard/public/create");
+  }
 
   if (loading) {
     return <div className="d-flex justify-content-center my-5"><div className="spinner-border text-primary" role="status"><span className="visually-hidden">Loading...</span></div></div>;
@@ -62,7 +69,7 @@ export default function Dashboard() {
             <div className="card-body">
               <h5 className="card-title">Create Public Room</h5>
               <p className="card-text">Create a new public room that others can join.</p>
-              <button className="btn btn-success">Create Room</button>
+              <button onClick={handleCreatePublicRoom} className="btn btn-success">Create Room</button>
             </div>
           </div>
         </div>
@@ -90,12 +97,15 @@ export default function Dashboard() {
 
       <div className="row">
         {publicRooms.map(room => (
-          <div key={room.id} className="col-md-6 col-lg-3 mb-4">
+          <div key={room._id} className="col-md-6 col-lg-3 mb-4">
             <div className="card h-100 text-center">
               <div className="card-body">
                 <h5 className="card-title">{room.name}</h5>
                 <p className="card-text">{room.description}</p>
                 <button className="btn btn-primary">Join Room</button>
+              </div>
+              <div className="card-footer text-muted">
+                Created by {room.admin?.name || 'Unknown'}
               </div>
             </div>
           </div>
