@@ -1,2 +1,7 @@
-## Study-together commit history: 
-13-9-24: Auth finished
+## 📅 Study-Together Commit History
+
+| Date       | Summary                      |
+|------------|------------------------------|
+| **13-Sep-24** | Authentication module completed |
+|------------|------------------------------|
+| **14-Sep-24** | Dashboard branch merged to master branch |
