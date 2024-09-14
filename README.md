@@ -2,5 +2,5 @@
 
 | Date       | Summary                      |
 |------------|------------------------------|
-| **13-Sep-24** | Authentication module completed |
-| **14-Sep-24** | Dashboard branch merged to master branch |
+| **13-Sep-24** | Authentication completed |
+| **14-Sep-24** | Dashboard UI finished, and "Create Public Room" functionality added. |
