@@ -2,5 +2,5 @@
 
 | Date       | Summary                      |
 |------------|------------------------------|
-| **13-Sep-24** | Authentication completed |
-| **14-Sep-24** | Dashboard UI finished, and "Create Public Room" functionality added. |
+| **13-Sep-24** | Authentication completed, with JWT stored in cookie|
+| **14-Sep-24** | Basic Dashboard's UI created. Protected routes will redirect to login in th absence of token|
