@@ -41,10 +41,10 @@ export default function Login() {
       } else {
         setError(response.data);
         setMessage('');
+        setLoading(false);
       }
     } catch (err) {
       setError('An error occurred');
-    } finally {
       setLoading(false);
     }
   };
