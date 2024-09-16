@@ -9,7 +9,7 @@ export default function Login() {
   const [error, setError] = useState('');
   const [message, setMessage] = useState('');
   const [loading, setLoading] = useState(false);
-  const [loadingRedirect, setLoadingRedirect] = useState(false); // New state for redirect loading
+  const [loadingRedirect, setLoadingRedirect] = useState(false);
   const router = useRouter();
 
   const handleRedirect = async (e) => {
