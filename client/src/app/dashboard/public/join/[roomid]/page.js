@@ -8,9 +8,11 @@ export default function RoomPage() {
   const [room, setRoom] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-  
-  const {roomid} = useParams();
-  
+  const [leaving, setLeaving] = useState(false);
+
+  const { roomid } = useParams();
+  const router = useRouter();
+
   useEffect(() => {
     axios.get(`http://localhost:8000/room/public/get/${roomid}`, { withCredentials: true })
       .then(response => {
@@ -22,7 +24,16 @@ export default function RoomPage() {
         setLoading(false);
       });
   }, [roomid]);
-  const router = useRouter();
+
+  const handleLeaveRoom = async () => {
+    setLeaving(true);
+    try {
+      router.push("/dashboard");
+    } catch (error) {
+      setError('Failed to leave room');
+      setLeaving(false);
+    }
+  };
 
   if (loading) {
     return (
@@ -53,8 +64,20 @@ export default function RoomPage() {
           </p>
         </div>
         <div className="card-footer bg-light text-center">
-          <button onClick={()=>router.push("/dashboard")} className="btn btn-danger">
-            <i className="bi bi-box-arrow-right"></i> Leave Room
+          <button 
+            onClick={handleLeaveRoom} 
+            className="btn btn-danger"
+            disabled={leaving}
+          >
+            {leaving ? (
+              <div className="spinner-border spinner-border-sm text-white" role="status">
+                <span className="visually-hidden">Loading...</span>
+              </div>
+            ) : (
+              <>
+                <i className="bi bi-box-arrow-right"></i> Leave Room
+              </>
+            )}
           </button>
         </div>
       </div>

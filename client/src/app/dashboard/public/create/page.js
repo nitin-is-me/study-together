@@ -6,27 +6,24 @@ import { useRouter } from "next/navigation";
 export default function CreatePublicRoom() {
   const [name, setName] = useState('');
   const [description, setDescription] = useState('');
-  const [loading, setLoading] = useState(false);
+  const [creating, setCreating] = useState(false);
   const [error, setError] = useState(null);
   const [successMessage, setSuccessMessage] = useState(null);
-
   const router = useRouter();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setLoading(true);
+    setCreating(true);
 
     try {
       const response = await axios.post("http://localhost:8000/room/public/create", { name, description }, { withCredentials: true });
       setSuccessMessage("Public room created successfully!");
       setName('');
       setDescription('');
-      setLoading(false);
-      //I am adding redirecting to dashboard main page after room creation, i'll replace this with redirecting to the room in future
       router.push("/dashboard");
     } catch (err) {
       setError('Failed to create public room');
-      setLoading(false);
+      setCreating(false);
     }
   };
 
@@ -39,7 +36,6 @@ export default function CreatePublicRoom() {
           <div className="card">
             <div className="card-body">
               {error && <div className="alert alert-danger" role="alert">{error}</div>}
-              {successMessage && <div className="alert alert-success" role="alert">{successMessage}</div>}
               <form onSubmit={handleSubmit}>
                 <div className="mb-3">
                   <label htmlFor="roomName" className="form-label">Room Name</label>
@@ -63,8 +59,17 @@ export default function CreatePublicRoom() {
                     required
                   ></textarea>
                 </div>
-                <button type="submit" className="btn btn-success" disabled={loading}>
-                  {loading ? 'Creating...' : 'Create Room'}
+                <button type="submit" className="btn btn-success" disabled={creating}>
+                  {creating ? (
+                    <div className="d-flex align-items-center">
+                      <div className="spinner-border spinner-border-sm text-light me-2" role="status">
+                        <span className="visually-hidden">creating...</span>
+                      </div>
+                      Creating...
+                    </div>
+                  ) : (
+                    'Create Room'
+                  )}
                 </button>
               </form>
             </div>
