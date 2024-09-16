@@ -3,7 +3,7 @@ import axios from 'axios';
 
 export async function middleware(request) {
   const token = request.cookies.get('Token')?.value || '';
-  
+
   const loginUrl = new URL('/auth/login', request.url);
   const dashboardUrl = new URL('/dashboard', request.url);
 
@@ -29,5 +29,5 @@ export async function middleware(request) {
 }
 
 export const config = {
-  matcher: ['/', '/dashboard'],
+  matcher: ['/', '/dashboard/:path'],
 };
