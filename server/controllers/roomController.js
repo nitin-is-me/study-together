@@ -49,3 +49,13 @@ exports.getPublicRooms = async (req, res) => {
     res.status(500).send('Internal server error');
   }
 }
+
+exports.getPublicRoomById = async(req, res) =>{
+  try {
+    const{ id } = req.params;
+    const room = await PublicRoom.findOne({_id: id}).populate('admin', 'name');
+    res.json(room)
+  } catch (error) {
+    res.status(500).send("Interal server error");
+  }
+}
