@@ -23,6 +23,6 @@ app.use(express.json());
 
 app.use("/auth", authRouter);
 app.use("/room", roomRouter);
-app.listen(8000, () => {
+app.listen(port, () => {
     console.log(`Server is running on port ${port}`);
 })
